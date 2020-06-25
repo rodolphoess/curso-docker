@@ -4,7 +4,7 @@ Projeto para guardar as anotações e códigos-exemplo realizados durante o curs
 
 _______________________________________
 
-- Passo a passo do comando run:
+- PASSO A PASSO COMANDO RUN:
 
 run: O comando run concatena e executa os seguintes comandos;
 
@@ -15,7 +15,7 @@ run: O comando run concatena e executa os seguintes comandos;
 
 _______________________________________
 
-- Modos de execucao de um container:
+- MODOS DE EXECUÇÃO DE UM CONTAINER:
 
 Existem dois modos para executar containeres com o docker. O modo daemon, que eh o modo principal, em que o container eh executado como processo e fica rodando em background, e tambem existe o modo interativo, bom para fazer experimentos, fazer testes, realizar configuracoes e ver se o container executa conforme o esperado, etc. No modo interativo eh inserido um comando apos o run do container, e apos o container executar eh mostrado ao usuario o resultado do comando que foi informado. 
 
@@ -27,13 +27,13 @@ Esse comando vai executar o container do debian e em seguida vai rodar o comando
 
 _______________________________________
 
-- Run sempre cria novo container:
+- RUN SEMPRE CRIA NOVO CONTAINER:
 
 O comando run sempre cria um novo container quando ele eh chamado. Atraves da adicao do comando --rm o container nao ficara listado quando o comando sudo docker container ps -a for executado.
 
 _______________________________________
 
-- Criacao de um container no modo interativo:
+- CRIAÇÃO DE UM CONTAINER NO MODO INTERATIVO:
 
 Eh possivel criar um container com o run e entrar nele de forma interativa para criar arquivos, por exemplo. Para isso a tag -it devera ser inserida no comando de criacao de um container. Por exemplo:
 
@@ -44,7 +44,7 @@ exit [Para sair do container e voltar para o modo cliente]
 
 _______________________________________
 
-- Nomeando um container:
+- NOMEANDO UM CONTAINER:
 
 Para criar um container com um nome especifico adiciona-se a notacao --name no ato de criacao de um container. Por exemplo:
 
@@ -52,7 +52,7 @@ sudo docker container run --name mydeb -it debian bash
 
 _______________________________________
 
-- Reutilizando um container:
+- REUTILIZANDO UM CONTAINER:
 
 Para reutilizar um container previamente criado utiliza-se o comando start somado das tags -ai para anexar o container ao docker client (terminal) na tag 'a' e a tag 'i' para executar o terminal no modo interativo. Por exemplo:
 
@@ -62,14 +62,14 @@ Com esse comando sera startado o container mydeb, criado anteriormente, no modo 
 
 _______________________________________
 
-- O container nao pode ficar totalmente isolado:
+- O CONTAINER NÃO PODE FICAR TOTALMENTE ISOLADO:
 
 O Docker perderia boa parte de suas vantagens se nao fosse possivel haver comunicacao entre um container criado e a maquina host ou entre containers. Por isso, eh possivel que haja comunicacao via porta TPC ou UDP, seja a partir de uma pasta ou volume criado compartilhado entre o host e o container, seja a partir da copia de arquivos entre o container e a maquina host ou da maquina host e o container, ou mesmo da comunicacao entre varios containers, um container que isole o front-end, outro container que isole a API, outro container com o banco de dados, mas havendo uma comunicacao entre todos eles para que a aplicacao torne-se funcional.
 
 _______________________________________
 
 
-- Mapear portas dos containers como usuario:
+- MAPEAR PORTAS DOS CONTAINERS COMO USUÁRIO:
 
 Como usuario, sera baixado o servidor nginx (leia-se enginex) e mapeada a porta 8080, para que seja possivel utilizar o nginx a partir da porta mapeada;
 
@@ -91,7 +91,7 @@ Para parar o processo eh so ir no terminal em que o processo esta sendo executad
 
 _______________________________________
 
-- Mapear diretorios para o container:
+- MAPEAR DIRETÓRIOS PARA O CONTAINER:
 
 Sera possivel mapear uma pasta no host para uma pasta no container com o comando abaixo:
 
@@ -109,7 +109,7 @@ Ao rodar o comando e dar um refresh no browser, eh possivel perceber que sera ex
 
 _______________________________________
 
-- Rodar um servidor web em background:
+- RODAR UM SERVIDOR WEB EM BACKGROUND:
 
 Sera executado o container em background, ou seja, o container sera executado em modo daemon sem que haja uma interacao por meio do terminal tornando a execucao do processo nao visivel. E eh esse um dos grandes diferenciais do Docker, executar os processos em modo background/daemon. Para isso, utiliza-se o comando abaixo:
 
@@ -127,7 +127,7 @@ sudo docker container stop ex-daemon-basic
 
 _______________________________________
 
-- Gerenciar o container em background:
+- GERENCIAR O CONTAINER EM BACKGROUND:
 
 Existem tres comando basicos para gerenciamento de um container, isso considerando que o container foi previamente criado como na secao anterior:
 
@@ -137,7 +137,7 @@ sudo docker container stop ex-daemon-basic
 
 _______________________________________
 
-- Manipulacao de containers em modo daemon:
+- MANIPULAÇÃO DE CONTAINERS EM MODO DAEMON:
 
 Ha outros comandos para manipulacao de containers docker, e alguns deles realizam as mesmas funcoes;
 
@@ -169,7 +169,7 @@ sudo docker image rm <nome da imagem> [Remove uma imagem especifica]
 
 _______________________________________
 
-- Situacoes para construir as proprias imagens:
+- SITUAÇÕES PARA CONSTRUIR AS PRÓPRIAS IMAGENS:
 
 1) Definir a propria imagem para o processo de integracao continua;
 1) Portabilidade entre ambientes, um ambiente de testes, um ambiente de producao, um ambiente de desenvolvimento de forma padronizada;
@@ -178,7 +178,7 @@ _______________________________________
 
 _______________________________________
 
-- Diferencas entre container e imagem:
+- DIFERENÇAS ENTRE CONTAINER E IMAGEM:
 
 Uma imagem seria o equivalente a uma classe, ou seja, eh um contrato de como a imagem deverá ser executada. Já o container seria o objeto, através da imagem executada é gerado um processo isolado, que eh o container em si.
 Ou seja, o container possui todas as caracteristicas da imagem ou das imagens em execucao, e uma imagem pode gerar N containeres. O container possuirá acesso ao sistema de arquivos montado na imagem, alem de possuir acesso a alguns arquivos do SO da maquina host.
@@ -187,7 +187,7 @@ OBS.: Uma imagem eh um modelo de sistemas de arquivos, montada em camadas subseq
 
 _______________________________________
 
-- Aprofundando imagens:
+- APROFUNDANDO IMAGENS:
 
 Imagens, assim como containers, tambem possuem um hash identificador de 256 bits. Como decorar esses hashs eh complicado, recomenda-se nomear ou tagear as imagens de acordo com a utilidade da imagem criada;
 
@@ -203,7 +203,7 @@ OBS.: Deve-se tomar muito cuidado ao usar imagens na versao latest para ambiente
 
 _______________________________________
 
-- Comandos para gerenciamento de imagens:
+- COMANDOS PARA GERENCIAMENTO DE IMAGENS:
 
 sudo docker image ls [Listar as imagens em execucao]
 sudo docker image pull [Baixa uma imagem diretamente do hub]
@@ -215,7 +215,7 @@ sudo docker image push [Apos criada a imagem com o build, ou ao criar uma nova t
 
 _______________________________________
 
-- Docker Hub x Docker Registry
+- DOCKER HUB X DOCKER REGISTRY:
 
 O Docker Registry eh um servico server-side para registro e obtencao de imagens, disponibiliza uma API para que se possa resgatar e enviar imagens a partir desse servico pela API. Por exemplo, pode-se ter um Registry privado para a empresa com as imagens especificas da empresa. 
 
@@ -223,7 +223,7 @@ Ja o Docker Hub eh um SaaS. É um produto na nuvem disponibilizado pelo Docker, 
 
 _______________________________________
 
-- Meu primeiro build:
+- MEU PRIMEIRO BUILD:
 
 Atraves da construcao de um descritor sera criada a primeira imagem.
 
@@ -245,7 +245,7 @@ sudo docker container ls
 
 _______________________________________
 
-- Uso das instrucoes de preparacao:
+- USO DAS INSTRUÇÕES DE PREPARAÇÃO:
 
 Aqui sera criado um Dockerfile que recebera argumentos para deixar pontos de personalizacao na hora de gerar a imagem. Apos escrito o Dockerfile indicando o(s) argumento(s), digita-se o comando abaixo para o build;
 
@@ -265,7 +265,7 @@ sudo docker container run ex-build-arg bash -c 'echo $S3_BUCKET'
 
 _______________________________________
 
-- Uso das instrucoes de povoamento:
+- USO DAS INSTRUÇÕES DE POVOAMENTO:
 
 Aqui sera criado um Dockerfile com um comando RUN e uma instrucao para adicionar um conteudo dentro de um arquivo, so que apos o comando RUN sera inserido um comando COPY para que seja copiado o conteudo que esta no host para dentro da imagem no qual o caminho tbm sera especificado. Apos criado o Dockerfile executa-se o comando abaixo
 
@@ -279,7 +279,7 @@ Com isso o container estara em execucao, que podera ser checado no browser atrav
 
 _______________________________________
 
-- Uso de instrucoes para execucao de um container (1) e (2):
+- USO DAS INSTRUÇÕES PARA EXECUÇÃO DE UM CONTAINER. TÓPICOS (1) E (2):
 
 (1)
 
@@ -298,7 +298,7 @@ OBS.: É interessante colocar sempre no final do descritor as layers que mudam c
 
 _______________________________________
 
-- Subindo uma imagem para o DockerHub:
+- SUBINDO UMA IMAGEM PARA O DOCKERHUB:
 
 sudo docker image tag ex-simple-build rodolphoerick/simple-build:1.0 [Cria uma nova tag para uma imagem, que nesse caso foi a ex-simple-build, e o nome da nova tag será rodolphoerick/simple-build cuja a versão é a 1.0]
 
@@ -308,7 +308,7 @@ sudo docker image push rodolphoerick/simple-build:1.0 [Sobe para o DockerHub a i
 
 _______________________________________
 
-- Redes:
+- REDES:
 
 É interessante conhecer e saber aplicar o conceito de redes no Docker, visto que nem todas as aplicações darão acesso a uma rede com acesso externo, tais como banco de dados.
 
