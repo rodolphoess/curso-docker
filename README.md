@@ -372,4 +372,15 @@ sudo docker container exec -it container4 ifconfig [Para ver as conexões de red
 
 _______________________________________
 
-- 
+- ESTRUTURA INICIAL PROJETO CADASTRO SIMPLES:
+
+Criou-se uma série de pastas e arquivos para simulação de um front-end, back-end e banco de dados usando MongoDB. Para criar o back-end foi usado o node, e para criar o arquivo node usou-se os comandos abaixo:
+
+npm init -y
+npm i --save express@4.15.3 mongoose@4.11.1 node-restful@0.2.6 body-parser@1.17.2 cors@2.8.3
+
+Foram criados alguns arquivos e pastas: app.js; package-lock.json; package.json; node_modules
+
+Não será necessário o node_modules, por isso foi excluída essa pasta através do comando abaixo:
+
+rm -rf node_modules/
