@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db: ## Mesmo nome indicado lá no app.js na linha 11
+    image: mongo:3.4
+  backend:
+    image: node:8.1
+    volumes:
+      - ./backend:/backend ## ./Caminho relacional de onde está o docker-compose:/mapeamento para a pasta dentro da imagem
+    ports:
+      - 3000:3000
+    command: bash -c "cd /backend && npm i && node app" ## Roda o comando para entrar na pasta /backend na imagem e instalar as dependência do node e executar o arquivo app.js
+  frontend:
+    image: nginx:1.13
+    volumes:
+      - ./frontend:/usr/share/nginx/html/ ## ./Caminho relacional de onde estão os arquivos frontend:/mapeamento para a imagem
+    ports:
+      - 80:80

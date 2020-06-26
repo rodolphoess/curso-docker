@@ -384,3 +384,13 @@ Foram criados alguns arquivos e pastas: app.js; package-lock.json; package.json;
 Não será necessário o node_modules, por isso foi excluída essa pasta através do comando abaixo:
 
 rm -rf node_modules/
+
+_______________________________________
+
+- CONFIGURANDO O AMBIENTE COM COMPOSE:
+
+Após criados os arquivos front-end, back-end com configuração para o banco, cria-se o arquivo docker-compose.yml, que é um arquivo yaml em que a hierarquia dentro do arquivo comporta-se através da identação do código. Após escrito o docker-compose, vai-se para a pasta aonde o arquivo docker-compose.yml está, que é na /node-mongo-compose e executa-se o comando abaixo para subir os containers e a aplicação por consequência:
+
+docker-compose up
+
+Para testar se está funcionando após subir tudo, no browser acessar o localhost que por padrão acessará a porta 80 para testar o front-end e também localhost:3000 para acessar o back-end, que foi conforme foi configurado no docker-compose
