@@ -394,3 +394,7 @@ Após criados os arquivos front-end, back-end com configuração para o banco, c
 docker-compose up
 
 Para testar se está funcionando após subir tudo, no browser acessar o localhost que por padrão acessará a porta 80 para testar o front-end e também localhost:3000 para acessar o back-end, que foi conforme foi configurado no docker-compose
+
+_______________________________________
+
+- 

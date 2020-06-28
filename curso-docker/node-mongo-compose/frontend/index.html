@@ -1,1 +1,103 @@
-<h1>Front-end</h1>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Cadastro Simples</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Cadastro Simples</h1>
+            <hr>
+            <div>
+                <input name='id' type='hidden' />
+                <div class="form-group">
+                    <label for="Name"></label>
+                    <input class='form-control' name='name' placeholder='Digite o nome' />
+                </div>
+                <button class='btn btn-success' save>Salvar</button> <!-- Propriedade save para poder ser linkado com o botão assim como seria linkado pelo name="" -->
+            </div>
+
+            <table class="table" id='clients'>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="clientsRows"></tbody>
+            </table>
+        </div>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+        <script>
+            const API = 'http://localhost:3000'
+
+            // Função para renderizar os botões para Atualizar e Excluir um cliente da tabela. 
+            const createButton = (label, type) => {
+                return $('<button>').addClass(`btn btn-${type}`).html(label)
+            }
+
+            // Função para renderizar a tabela com todos os clientes e chamando a função createButton para criar os botões que estarão contidos na tabela.
+            const renderRows = clients => {
+                const rows = clients.map(client => {
+                    const updateButton = createButton('Atualizar', 'warning')
+                    updateButton.click(() => loadClient(client)) // Associa o clique do botão à chamada de função para realizar o carregamento do cliente.
+
+                    const removeButton = createButton('Excluir', 'danger')
+                    removeButton.click(() => removeClient(client)) // Associa o clique do botão à chamada de função para realizar a remoção do cliente.
+
+                    return $('<tr>')
+                        .append($('<td>').append(client.name))
+                        .append($('<td>').append(updateButton).append(removeButton))
+                })
+
+                $('#clientsRows').html(rows)
+            }
+
+            // Quando o usuário clicar no botão Atualizar, fará o load do cliente na barra de texto para o cliente poder ser atualizado.
+            const loadClient = client => {
+                $('[name=id]').val(client._id)
+                $('[name=name]').val(client.name)
+            }
+
+            // Quando o usuário clicar no botão Excluir, fará a requisição para exclusão do cliente.
+            const removeClient = client => {
+                $.ajax({
+                    method: 'DELETE',
+                    url: `${API}/clients/${client._id}`,
+                    success: getClients
+                })
+            }
+
+            // Popula a tabela clients, indicada no html com o id=clients, com todos os clientes cadastrados.
+            const getClients = () => {
+                $.ajax({
+                    url: `${API}/clients`,
+                    success: clients => {
+                        renderRows(clients)
+                        $('[name]').val('') // Faz com que o input text no html fique novamente sem nenhum texto após a renderização da tabela com clientes.
+                        // console.log(clients);
+                    }
+                })
+            }
+
+            const saveClient = () => {
+                const _id = $('[name=id]').val()
+                const name = $('[name=name]').val()
+                $.ajax({
+                    method: _id ? 'PUT' : 'POST', // Se o _id estiver settado em banco utiliza o PUT e se não estiver settado utiliza o POST.
+                    url: `${API}/clients/${_id}`,
+                    data: _id ? { _id, name } : { name }, // Se o _id estiver settado vai mandar o _id e o nome para atualização, e se não estiver settado manda só o nome e cria o _id de acordo com a sequence.
+                    success: getClients
+                })
+            }
+
+            // Quando a página for carregada chamará o getClients() que retornará todos os clientes cadastrados.
+            $(() => {
+                getClients()
+                $('[save]').click(saveClient)
+            })
+        </script>
+    </body>
+</html>
