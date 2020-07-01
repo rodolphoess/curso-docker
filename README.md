@@ -397,4 +397,43 @@ Para testar se está funcionando após subir tudo, no browser acessar o localhos
 
 _______________________________________
 
-- 
+## APLICAÇÃO COM DOCKER:
+
+- INICIANDO A COMPOSIÇÃO COM O BANDO DE DADOS:
+
+_______________________________________
+
+- USANDO VOLUMES E SCRIPTS DE BANCO DE DADOS:
+
+_______________________________________
+
+- CAMADA DE FRONT-END:
+
+_______________________________________
+
+- APP PARA ENFILEIRAR AS MENSAGENS:
+
+_______________________________________
+
+- CONFIGURAÇÃO DE PROXY REVERSO:
+
+_______________________________________
+
+- REDES, DEPENDÊNCIA E BANCO DE DADOS:
+
+_______________________________________
+
+- FILA E WORKERS:
+
+_______________________________________
+
+- MÚLTIPLAS INSTÂNCIAS:
+
+_______________________________________
+
+- BOAS PRÁTICAS:
+
+_______________________________________
+
+- SOBREESCRITA:
+
