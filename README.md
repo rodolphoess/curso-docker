@@ -401,9 +401,23 @@ _______________________________________
 
 - INICIANDO A COMPOSIÇÃO COM O BANDO DE DADOS:
 
+Cria-se o banco de dados utilizando o docker-compose na versão 3, que é a última e mais completa em termos de funcionalidades, e indicando como primeiro serviço o banco de dados utilizando a imagem do postgres na versão 9.6. Após isso, utiliza-se os comandos abaixo:
+
+POSTGRES_VERSION=9.6 docker-compose up -d [Executa o docker-compose no modo daemon]
+docker-compose ps [Para visualizar os processos que estão executando]
+docker-compose down [Para os serviços do docker-compose que estão em execução]
+
 _______________________________________
 
 - USANDO VOLUMES E SCRIPTS DE BANCO DE DADOS:
+
+Criou-se os arquivos init.sql para criar o banco email_sender e inicializar a tabela emails e check.sql para testar se após a execução do init.sql ocorreu tudo conforme o esperado. Faz-se o apontamento desses arquivos através de volumes no docker-compose e em seguida executa-o pelo terminal. Para isso, executa-se os comandos abaixo:
+
+POSTGRES_VERSION=9.6 docker-compose up -d [Executa o docker-compose no modo daemon e por consequência já executa o init.sql que foi apontado no docker-compose.yml]
+
+docker-compose exec db psql -U postgres -f /scripts/check.sql [Executa o check.sql para listar, conectar e gerar um relatório e assim possibilitar se na execução do init.sql ocorreu tudo conforme o esperado]
+
+docker-compose down [Para finalizar a conexão dos serviços que estão sendo executados]
 
 _______________________________________
 

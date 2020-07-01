@@ -1,0 +1,14 @@
+version: '3' ## Última versão do docker-compose, indicando o conjunto de funcionalidades que será possível de trabalhar dentro do compose.
+volumes:
+    dados: ## Nome de um dos volumes, que está mapeado dentro do serviço db
+services:
+  db:
+    image: postgres:9.6
+    environment: 
+        - POSTGRES_PASSWORD=postgres # Configura uma senha padrão para acesso aos serviços do postgres. Caso não adicione essa linha e execute o docker-compose up sem o comando POSTGRES_VERSION=9.6 antes do docker-compose up, dará um erro e não subirá os serviços do docker-compose.
+    volumes: 
+        # Volume dos dados
+        - dados:/var/lib/postgresql/data
+        # Scripts
+        - ./scripts:/scripts ## Pega o caminho relativo a partir do docker-compose e mapeia na máquina host a pasta /script para ter acesso aos Scripts:mapeia para dentro do container a pasta /scripts
+        - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql ## Mapeia o init.sql criado na pasta /scrips na máquina host para uma pasta default inicializada no docker para os scripts postgres
