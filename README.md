@@ -423,13 +423,32 @@ _______________________________________
 
 - CAMADA DE FRONT-END:
 
+Aqui foi criada uma página html e foi setado o front-end no docker-compose como serviço. No front-end foi utilizado como servidor o nginx servindo de hospedeiro para o html. Feito isso foram executados os comandos abaixo para executar o docker-compose e subir os containers do banco e do front-end:
+
+POSTGRES_VERSION=9.6 docker-compose up -d [Executa o docker-compose em modo daemon e sobe os dois containers que estavam setados nele até o momento, o BD e o front-end, que foi configurado nessa aula]
+docker-compose ps [Para certificar de que os dois containers estão realmente executando]
+docker-compose logs -f -t [Gera logs no terminal ao haver acesso nos containers que estão em execução]
+
+Para testar no browser se o front-end realmente está funcional basta acessar o http://localhost
 _______________________________________
 
 - APP PARA ENFILEIRAR AS MENSAGENS:
 
+Nessa aula foram iniciados os arquivos app.sh e sender.py, que configuram o back-end. Após isso foi configurado o back-end no docker-compose para por fim rodar os comandos de execução abaixo:
+
+POSTGRES_VERSION=9.6 docker-compose up -d [Executa o docker-compose em modo daemon e sobe os dois containers que estavam setados nele até o momento, o BD e o front-end, que foi configurado nessa aula]
+docker-compose ps [Para certificar de que os dois containers estão realmente executando]
+docker-compose logs -f -t [Gera logs no terminal ao haver acesso nos containers que estão em execução]
+
+Para testar no browser se o front-end realmente está funcional basta acessar o http://localhost
+
 _______________________________________
 
 - CONFIGURAÇÃO DE PROXY REVERSO:
+
+Na configuração do proxy reverso é adicionada uma camada adicional de segurança, pois com o nginx o mapeamento do back-end fica por conta desse servidor web baseado em eventos, tornando possível não expor uma porta no back-end e somente acessá-lo através do mapeamento no nginx. Na aula passada foi necessário expor a porta 8080 no back-end, com isso tínhamos a porta 80 sendo exposta para o front-end e a porta 8080 sendo exposta para o back-end, mas com a adição do nginx como proxy reverso não será mais necessário expor a porta 8080, e só será possível acessar o back-end através do nginx, configurando um proxy reverso.
+
+
 
 _______________________________________
 

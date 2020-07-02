@@ -2,13 +2,44 @@ version: '3' ## Última versão do docker-compose, indicando o conjunto de funci
 volumes:
     dados: ## Nome de um dos volumes, que está mapeado dentro do serviço db
 services:
-  db:
-    image: postgres:9.6
-    environment: 
-        - POSTGRES_PASSWORD=postgres # Configura uma senha padrão para acesso aos serviços do postgres. Caso não adicione essa linha e execute o docker-compose up sem o comando POSTGRES_VERSION=9.6 antes do docker-compose up, dará um erro e não subirá os serviços do docker-compose.
-    volumes: 
-        # Volume dos dados
-        - dados:/var/lib/postgresql/data
-        # Scripts
-        - ./scripts:/scripts ## Pega o caminho relativo a partir do docker-compose e mapeia na máquina host a pasta /script para ter acesso aos Scripts:mapeia para dentro do container a pasta /scripts
-        - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql ## Mapeia o init.sql criado na pasta /scrips na máquina host para uma pasta default inicializada no docker para os scripts postgres
+    db:
+        image: postgres:9.6
+        environment: 
+            - POSTGRES_PASSWORD=postgres # Configura uma senha padrão para acesso aos serviços do postgres. Caso não adicione essa linha e execute o docker-compose up sem o comando POSTGRES_VERSION=9.6 antes do docker-compose up, dará um erro e não subirá os serviços do docker-compose.
+        volumes: 
+            # Volume dos dados
+            - dados:/var/lib/postgresql/data
+            # Scripts
+            - ./scripts:/scripts ## Pega o caminho relativo a partir do docker-compose e mapeia na máquina host a pasta /script para ter acesso aos Scripts:mapeia para dentro do container a pasta /scripts
+            - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql ## Mapeia o init.sql criado na pasta /scrips na máquina host para uma pasta default inicializada no docker para os scripts postgres
+    frontend:
+        image: nginx:1.13
+        volumes:
+            # Site
+            - ./web:/usr/share/nginx/html/ ## Caminho relativo que está na máquina host : caminho em que deve ser mapeado/copiado o arquivo da máquina host para o nginx
+            # Configuração do proxy reverso
+            #- ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80 ## Porta em que roda por padrão : Porta exposta
+        #networks:
+        #    - web 
+        #depends_on:
+        #    - app
+    app:
+        image: python:3.6
+        volumes:
+            # Aplicação
+            - ./app:/app ## Mapeia o host : mapeia o container
+        working_dir: /app ## Diretório corrente de execução no container
+        command: bash ./app.sh ## Comando de execução. Se não colocar o bash antes dá um erro na hora de subir o container do app/back-end.
+        ports: 
+            - 8080:8080
+        # networks:
+        #     - banco
+        #     - web
+        #     - fila
+        # depends_on:
+        #     - db
+        #     - queue
+        # environment:
+        #     - DB_NAME=abc_sender
