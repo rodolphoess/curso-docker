@@ -18,12 +18,12 @@ services:
             # Site
             - ./web:/usr/share/nginx/html/ ## Caminho relativo que está na máquina host : caminho em que deve ser mapeado/copiado o arquivo da máquina host para o nginx
             # Configuração do proxy reverso
-            #- ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         ports:
             - 80:80 ## Porta em que roda por padrão : Porta exposta
-        #networks:
+        # networks:
         #    - web 
-        #depends_on:
+        # depends_on:
         #    - app
     app:
         image: python:3.6
@@ -32,14 +32,27 @@ services:
             - ./app:/app ## Mapeia o host : mapeia o container
         working_dir: /app ## Diretório corrente de execução no container
         command: bash ./app.sh ## Comando de execução. Se não colocar o bash antes dá um erro na hora de subir o container do app/back-end.
-        ports: 
-            - 8080:8080
-        # networks:
-        #     - banco
-        #     - web
-        #     - fila
-        # depends_on:
-        #     - db
-        #     - queue
-        # environment:
-        #     - DB_NAME=abc_sender
+        networks:
+            - banco
+            - web
+            - fila
+        depends_on:
+            - db
+            - queue
+        environment:
+            - DB_NAME=abc_sender
+    queue:
+        image: redis:3.2
+        networks:
+            - fila
+    worker:
+        build: worker
+        volumes:
+            # Worker
+            - ./worker:/worker
+        working_dir: /worker
+        command: worker.py
+        networks:
+            - fila
+        depends_on:
+            - queue
