@@ -50,13 +50,13 @@ services:
     queue:
         image: redis:3.2
         networks:
-            - fila ## Estará na rede fila.
+            - fila ## Estará/Pertence na rede fila.
     worker:
         build: worker
         volumes:
             # Worker
-            - ./worker:/worker
-        working_dir: /worker
+            - ./worker:/worker ## ./pasta mapeada na máquina host : /pasta que receberá os volumes no container
+        working_dir: /worker ## Diretório corrente a ser executado
         command: worker.py
         networks:
             - fila ## Estará na rede fila.
