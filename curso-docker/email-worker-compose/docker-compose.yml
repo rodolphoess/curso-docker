@@ -1,6 +1,10 @@
 version: '3' ## Última versão do docker-compose, indicando o conjunto de funcionalidades que será possível de trabalhar dentro do compose.
 volumes:
     dados: ## Nome de um dos volumes, que está mapeado dentro do serviço db
+networks: ## Cria-se três redes que comportarão os containers da aplicação, a rede banco, web e fila.
+    banco:
+    web:
+    fila:
 services:
     db:
         image: postgres:9.6
@@ -12,6 +16,8 @@ services:
             # Scripts
             - ./scripts:/scripts ## Pega o caminho relativo a partir do docker-compose e mapeia na máquina host a pasta /script para ter acesso aos Scripts:mapeia para dentro do container a pasta /scripts
             - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql ## Mapeia o init.sql criado na pasta /scrips na máquina host para uma pasta default inicializada no docker para os scripts postgres
+        networks: 
+            - banco ## O service de DB estará apenas dentro da rede denominada banco.
     frontend:
         image: nginx:1.13
         volumes:
@@ -21,10 +27,10 @@ services:
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         ports:
             - 80:80 ## Porta em que roda por padrão : Porta exposta
-        # networks:
-        #    - web 
-        # depends_on:
-        #    - app
+        networks:
+           - web ## O service de front-end estará apenas dentro da rede denominada web.
+        depends_on: ## Indica as dependências do serviço, com isso ao executar o comando docker-compose up o primeiro serviço executado será aquele que não possui dependencias. Além disso, caso seja inicializado um serviço de forma isolada, o depends on indicará os demais serviços que deverão ser inicializados também para a correta execução do serviço requerido.
+           - app
     app:
         image: python:3.6
         volumes:
@@ -32,7 +38,7 @@ services:
             - ./app:/app ## Mapeia o host : mapeia o container
         working_dir: /app ## Diretório corrente de execução no container
         command: bash ./app.sh ## Comando de execução. Se não colocar o bash antes dá um erro na hora de subir o container do app/back-end.
-        networks:
+        networks: ## O service de aplicação estará inserida na rede banco, web e fila. Isso porque a aplicação interagirá com os serviços que estarão nessas redes.
             - banco
             - web
             - fila
@@ -44,7 +50,7 @@ services:
     queue:
         image: redis:3.2
         networks:
-            - fila
+            - fila ## Estará na rede fila.
     worker:
         build: worker
         volumes:
@@ -53,6 +59,6 @@ services:
         working_dir: /worker
         command: worker.py
         networks:
-            - fila
+            - fila ## Estará na rede fila.
         depends_on:
             - queue
