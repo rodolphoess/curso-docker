@@ -15,7 +15,7 @@ class Sender(Bottle):
 
         db_host = os.getenv('DB_HOST', 'db')
         db_user = os.getenv('DB_USER', 'postgres')
-        db_name = os.getenv('DB_NAME', 'sender')
+        db_name = os.getenv('DB_NAME', 'sender') ## Caso utilize como DB_NAME o valor padrão sender que está sendo adotado nessa linha, dará erro pois não existe esse db_name. Por isso, é necessário definir essa variável de ambiente lá no docker-compose na seção environment.
         dsn = f'dbname={db_name} user={db_user} host={db_host}'
         self.conn = psycopg2.connect(dsn)
         

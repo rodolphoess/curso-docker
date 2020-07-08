@@ -46,13 +46,14 @@ services:
             - db
             - queue
         environment:
-            - DB_NAME=abc_sender
+            - DB_NAME=abc_sender ## Definição de variável de ambiente para poder personalizar as configurações realizadas em código. Por exemplo, essa variável DB_NAME está em sender.py, mas está sendo definida aqui. 
+                                 ## Esse valor na verdade está sendo sobrescrito no arquivo docker-compose.override.yml
     queue:
         image: redis:3.2
         networks:
             - fila ## Estará/Pertence na rede fila.
     worker:
-        build: worker
+        build: worker ## Vai procurar dentro da pasta /worker o Dockerfile e vai buildar ele, assim será possível gerar vários containers utilizando o descritor como imagem
         volumes:
             # Worker
             - ./worker:/worker ## ./pasta mapeada na máquina host : /pasta que receberá os volumes no container

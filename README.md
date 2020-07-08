@@ -462,6 +462,10 @@ _______________________________________
 
 - MÚLTIPLAS INSTÂNCIAS:
 
+Para executar várias instâncias do worker executa-se o comando abaixo:
+
+docker-compose up -d --scale worker=3 [Sobe os serviços em modo daemon e utiliza a flag --scale para dizer qual serviço quer escalar e em quantas instâncias]
+
 _______________________________________
 
 - BOAS PRÁTICAS:
