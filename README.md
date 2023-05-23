@@ -4,14 +4,25 @@ Projeto para guardar as anotações e códigos-exemplo realizados durante o curs
 
 _______________________________________
 
+- LISTANDO CONTAINERS EM EXECUÇÃO:
+
+Para listar os containers em execução na sua máquina execute o comando abaixo:
+
+`docker ps`
+
+Com ele será exibido um resultado parecido com o da imagem abaixo no Temrinal caso não haja nenhum container em execução.
+
+![Resultado terminal docker ps](curso-docker/docker-ps.png)
+_______________________________________
+
 - PASSO A PASSO COMANDO RUN:
 
 run: O comando run concatena e executa os seguintes comandos;
 
-1) docker image pull;
-1) docker container create;
-1) docker container start;
-1) docker container exec [Execucao do container em modo interativo]
+1) `docker image pull`;
+1) `docker container create`;
+1) `docker container start`;
+1) `docker container exec` [Execucao do container em modo interativo]
 
 _______________________________________
 
@@ -21,7 +32,7 @@ Existem dois modos para executar containeres com o docker. O modo daemon, que eh
 
 Por exemplo; 
 
-sudo docker container run debian bash --version
+`sudo docker container run debian bash --version`
 
 Esse comando vai executar o container do debian e em seguida vai rodar o comando bash --version para saber a versao do container do debian que esta sendo executado.
 
@@ -29,7 +40,7 @@ _______________________________________
 
 - RUN SEMPRE CRIA NOVO CONTAINER:
 
-O comando run sempre cria um novo container quando ele eh chamado. Atraves da adicao do comando --rm o container nao ficara listado quando o comando sudo docker container ps -a for executado.
+O comando run sempre cria um novo container quando ele eh chamado. Atraves da adicao do comando --rm o container nao ficara listado quando o comando `sudo docker container ps -a` for executado.
 
 _______________________________________
 
@@ -37,10 +48,10 @@ _______________________________________
 
 Eh possivel criar um container com o run e entrar nele de forma interativa para criar arquivos, por exemplo. Para isso a tag -it devera ser inserida no comando de criacao de um container. Por exemplo:
 
-sudo docker container run -it debian bash
-touch curso-docker.txt [Para criar o arquivo curso-docker.txt]
-ls curso-docker.txt [Para checar se existe o arquivo]
-exit [Para sair do container e voltar para o modo cliente]
+`sudo docker container run -it debian bash`
+`touch curso-docker.txt` [Para criar o arquivo curso-docker.txt]
+`ls curso-docker.txt` [Para checar se existe o arquivo]
+`exit` [Para sair do container e voltar para o modo cliente]
 
 _______________________________________
 
@@ -48,7 +59,7 @@ _______________________________________
 
 Para criar um container com um nome especifico adiciona-se a notacao --name no ato de criacao de um container. Por exemplo:
 
-sudo docker container run --name mydeb -it debian bash
+`sudo docker container run --name mydeb -it debian bash`
 
 _______________________________________
 
@@ -56,7 +67,7 @@ _______________________________________
 
 Para reutilizar um container previamente criado utiliza-se o comando start somado das tags -ai para anexar o container ao docker client (terminal) na tag 'a' e a tag 'i' para executar o terminal no modo interativo. Por exemplo:
 
-sudo docker container start -ai mydeb
+`sudo docker container start -ai mydeb`
 
 Com esse comando sera startado o container mydeb, criado anteriormente, no modo interativo. Sendo possivel alterar o container ou executar o que ja existe nele.
 
@@ -180,7 +191,7 @@ _______________________________________
 
 - DIFERENÇAS ENTRE CONTAINER E IMAGEM:
 
-Uma imagem seria o equivalente a uma classe, ou seja, eh um contrato de como a imagem deverá ser executada. Já o container seria o objeto, através da imagem executada é gerado um processo isolado, que eh o container em si.
+Uma imagem seria o equivalente a uma classe, ou seja, é um contrato de como a imagem deverá ser executada. Já o container seria o objeto, através da imagem executada é gerado um processo isolado, que eh o container em si.
 Ou seja, o container possui todas as caracteristicas da imagem ou das imagens em execucao, e uma imagem pode gerar N containeres. O container possuirá acesso ao sistema de arquivos montado na imagem, alem de possuir acesso a alguns arquivos do SO da maquina host.
 
 OBS.: Uma imagem eh um modelo de sistemas de arquivos, montada em camadas subsequentes formando um sistema de arquivos, e possui acesso de somente leitura.
