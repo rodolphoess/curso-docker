@@ -48,10 +48,10 @@ _______________________________________
 
 Eh possivel criar um container com o run e entrar nele de forma interativa para criar arquivos, por exemplo. Para isso a tag -it devera ser inserida no comando de criacao de um container. Por exemplo:
 
-`sudo docker container run -it debian bash`
-`touch curso-docker.txt` [Para criar o arquivo curso-docker.txt]
-`ls curso-docker.txt` [Para checar se existe o arquivo]
-`exit` [Para sair do container e voltar para o modo cliente]
+`sudo docker container run -it debian bash`;
+`touch curso-docker.txt` [Para criar o arquivo curso-docker.txt];
+`ls curso-docker.txt` [Para checar se existe o arquivo];
+`exit` [Para sair do container e voltar para o modo cliente];
 
 _______________________________________
 
