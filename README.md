@@ -120,6 +120,12 @@ Ao rodar o comando e dar um refresh no browser, eh possivel perceber que sera ex
 
 _______________________________________
 
+- EXCLUINDO MÚLTIPLOS CONTAINERS
+
+`docker rm  $(docker ps -a -q) -f`
+
+_______________________________________
+
 - RODAR UM SERVIDOR WEB EM BACKGROUND:
 
 Sera executado o container em background, ou seja, o container sera executado em modo daemon sem que haja uma interacao por meio do terminal tornando a execucao do processo nao visivel. E eh esse um dos grandes diferenciais do Docker, executar os processos em modo background/daemon. Para isso, utiliza-se o comando abaixo:
